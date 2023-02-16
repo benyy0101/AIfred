@@ -3,15 +3,26 @@
 import React from 'react'
 import NewChat from './NewChat';
 import { useSession,signOut } from 'next-auth/react';
-import Image from 'next/image';
+import {useCollection} from 'react-firebase-hooks/firestore';
+import { collection,query, orderBy } from 'firebase/firestore';
+import { db } from '../firebase';
+import ChatRow from './ChatRow';
 
 function SideBar() {
 
   const {data: session} = useSession();
 
+  const [chats, loading, error] = useCollection(
+    session && query(
+      collection(db, "users", session.user?.email!, "chats"),
+      orderBy("createdAt", "asc")
+    )
+  );
+
+  
   const signoutHandler = () =>{
     signOut('google')
-  }
+  };
   
   return (
     <div className='p-2 flex flex-col h-screen'>
@@ -23,6 +34,9 @@ function SideBar() {
 
             </div>
             {/* Map through three CharTows */}
+            {chats?.docs.map(chat => (
+              <ChatRow key = {chat.id} id={chat.id}></ChatRow>
+            ))}
         </div>
         {session && <img 
         src={session.user?.image}

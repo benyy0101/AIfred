@@ -6,6 +6,8 @@ import { db } from "../firebase";
 import {addDoc, collection, serverTimestamp} from 'firebase/firestore';
 import {useSession} from 'next-auth/react';
 
+
+
 function NewChat() {
 
   const router = useRouter();
@@ -13,7 +15,7 @@ function NewChat() {
 
   const createNewChat = async () => {
     console.log('why?')
-    const userCollectionRef = collection(db, session?.user?.email!);
+    const userCollectionRef = collection(db, 'users',session?.user?.email!, 'chats');
     const doc = await addDoc(userCollectionRef, {
       messages:[],
       userId: session?.user?.email!,
