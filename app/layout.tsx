@@ -29,7 +29,7 @@ export default async function RootLayout({children}: {children: React.ReactNode;
                         {/*ClientProvider - Notification */}
                         <ClientProvider/>
 
-                        <div className="bg-[#343541] flex-1">{children}</div>
+                        <div className="relative bg-[#343541] flex-1">{children}</div>
                     </div>
                     )}
                 </SessionProvider>
