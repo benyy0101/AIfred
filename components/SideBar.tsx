@@ -7,6 +7,7 @@ import {useCollection} from 'react-firebase-hooks/firestore';
 import { collection,query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import ChatRow from './ChatRow';
+import ModelSelection from './ModelSelection';
 
 function SideBar() {
 
@@ -31,6 +32,9 @@ function SideBar() {
             <NewChat></NewChat>
             <div>
                 {/* ModelSelection */}
+                <div className='hidden sm:inline '>
+                  <ModelSelection></ModelSelection>
+                </div>
 
             </div>
             {/* Map through three CharTows */}
