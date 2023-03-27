@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { addDoc,collection, CollectionReference, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { toast } from "react-hot-toast";
+import ModelSelection from "./ModelSelection";
+import useSWR from "swr";
 
 type Props = {
     chatId: string;
@@ -16,7 +18,15 @@ function ChatInput({ chatId }: Props) {
 
     const {data:session} = useSession();
 
-    const model = "text-davinci-003"
+    const {data: model} = useSWR('model',{
+        fallbackData: 'text-davinci-003'
+    })
+
+    const {data:temp} = useSWR('temp',{
+        fallbackData: 0.5
+    })
+
+    console.log(model);
 
     const promptInputHandler =(e: React.ChangeEvent<HTMLInputElement>) => {
         setPrompt(e.target.value!)
@@ -58,6 +68,7 @@ function ChatInput({ chatId }: Props) {
                     model: model, 
                     email: session?.user?.email!,
                     session: session,
+                    temp: temp
                 })
             });
     
@@ -78,7 +89,7 @@ function ChatInput({ chatId }: Props) {
 
     };
 
-    return <div className="w-full bg-gray-700/50 text-gray-400 rounded-lg text-sm ">
+    return <div className="w-full bg-gray-700/50 text-gray-400 rounded-lg text-sm">
         <form className="p-5 space-x-5 flex" onSubmit={promptSubmitHandler}>
 
             <input 
@@ -96,6 +107,11 @@ function ChatInput({ chatId }: Props) {
                 <PaperAirplaneIcon className="h-4 w-4 -rotate-45"></PaperAirplaneIcon>
             </button>
         </form>
+
+        <div className="md:hidden">
+            <ModelSelection/>
+
+        </div>
     </div>;
 }
 

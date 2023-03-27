@@ -15,15 +15,13 @@ export default async function handler(
     res: NextApiResponse<Data>
 ){
     const models = await openai.listModels().then(
-        (res:NextApiResponse<Data>)=> res.data.data
+        (res: any) => res.data.data
     )
 
-    const modelOption = models.map((model)=>({
+    const modelOption = models.map((model: any)=>({
         value: model.id,
         label: model.id
     }))
-
-    res.status(200).json({
-        modelOption,
-    })
+    // console.log(modelOption)
+    res.status(200).json({modelOption})
 }

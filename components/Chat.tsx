@@ -34,14 +34,13 @@ function Chat({ chatId }: Props) {
     <div className="flex-1 overflow-y-scroll">
       {messages?.empty && (
         <Fragment>
-          <p className="mt-10 text-center text-white">
-            Type a prompt in below to get started!
+          <p className="mt-20 text-center text-white text-3xl select-none">
+            What can I do for you today?
           </p>
-          <ArrowDownCircleIcon className="h-10 w-10 mx-auto mt-5 text-white animate-bounce"></ArrowDownCircleIcon>
         </Fragment>
       )}
       {messages?.docs.map((message) => (
-        <Message key={message.id} message={message.data()} />
+        <Message key={message.id} message={message.data()}/>
       ))}
     </div>
   );

@@ -9,13 +9,25 @@ type Props = {
 function Message({ message }: Props) {
   const isGPT = message.user.name === "ChatGPT";
 
-
-  return <div className={`py-5 text-white ${isGPT && "bg-[#434654]"}`}>
-    <div className="flex space-x-5 px-10 max-w-2xl mx-auto">
-    <img src={message.user.avatar} alt="" className="h-8 w-8"></img>
-    <p className="pt-1 text-sm">{message.text}</p>
-  </div>
-  </div>
+  if (isGPT) {
+    return (
+      <div className={`py-6 text-white`}>
+        <div className={`flex space-x-4 px-10 max-w-2xl mx-auto justify-end`}>
+          <p className={`rounded-lg ml-10 px-8 pt-5 pb-5 text-md bg-[#2294fb] shadow-2xl`}>{message.text}</p>
+          <img src={message.user.avatar} alt="" className="h-8 w-8 rounded-full shadow-2xl"></img>
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className={`py-5 text-white `}>
+        <div className="flex space-x-4 px-10 max-w-2xl mx-auto ">
+          <img src={message.user.avatar} alt="" className="h-8 w-8 rounded-full shadow-2xl"></img>
+          <p className=" text-black rounded-lg px-8 pt-5 pb-5 text-md bg-[#d4d4d4] shadow-2xl">{message.text}</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Message;

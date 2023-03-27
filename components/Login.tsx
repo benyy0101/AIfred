@@ -11,16 +11,32 @@ function Login() {
   };
 
   return (
-    <div className='bg-[#11A37F] h-screen flex flex-col items-center justify-center space-y-10'>
+    <div className='bg-black h-screen flex flex-col items-center justify-center space-y-10'>
+      <div onClick={loginHandler} className="
+      flex 
+      flex-row 
+      space-x-5 
+      hover:cursor-pointer 
+      animate-pulse 
+      duration-1000 
+      border
+      border-[#2294fb]
+      rounded-lg
+      border-opacity-50
+      p-5
+      pt-4
+      ">
       <Image
       priority
       src = {openAI}
-      width={300}
-      height={300}
+      width={30}
+      height={30}
       alt = 'logo'
       />
 
-      <button onClick={loginHandler} className='text-white font-bold text-3xl animate-pulse'> Sign In to use AIfred</button>
+      <button  className='font-bold text-5xl  text-[#2294fb]'>AIfred</button>
+      </div>
+      
     </div>
   )
 };

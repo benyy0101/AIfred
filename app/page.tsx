@@ -7,7 +7,7 @@ import { authOptions } from "../pages/api/auth/[...nextauth]";
 async function HomePage() {
     const session = await getServerSession(authOptions);
         return (
-            <div className="text-white flex flex-col items-center justify-center h-screen">
+            <div className="text-white flex flex-col items-center justify-center h-screen select-none px-5">
                 <h1 className="text-5xl font-bold mb-20">Welcome, {session!.user?.name}</h1>
 
                 <div className='flex flex-row space-x-2 text-center'>

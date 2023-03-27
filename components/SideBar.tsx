@@ -8,6 +8,7 @@ import { collection,query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import ChatRow from './ChatRow';
 import ModelSelection from './ModelSelection';
+import TempForm from './TempForm';
 
 function SideBar() {
 
@@ -22,7 +23,9 @@ function SideBar() {
 
   
   const signoutHandler = () =>{
-    signOut('google')
+    signOut({
+      callbackUrl: '/'
+    });
   };
   
   return (
@@ -30,22 +33,29 @@ function SideBar() {
         <div className='flex-1 space-y-2'>
             {/* Create New Chat */}
             <NewChat></NewChat>
-            <div>
-                {/* ModelSelection */}
+            {/* ModelSelection */}
                 <div className='hidden sm:inline '>
                   <ModelSelection></ModelSelection>
+                  <TempForm/>
+                </div>
+            <div className='flex flex-col space-y-2 my-2'>
+              {loading && (
+                <div className="animate-pulse text-center text-white">
+                    <p> Loading Chats...</p>
                 </div>
 
-            </div>
-            {/* Map through three CharTows */}
+              )}
+                {/* Map through three CharTows */}
             {chats?.docs.map(chat => (
               <ChatRow key = {chat.id} id={chat.id}></ChatRow>
             ))}
+            </div>
+            
         </div>
         {session && <img 
-        src={session.user?.image}
+        src={session.user?.image!}
         alt='user image'
-          className='h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50'
+          className='h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-80 transition duration-100'
           onClick={signoutHandler}></img>}
     </div>
   );

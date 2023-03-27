@@ -1,6 +1,6 @@
 import admin from "firebase-admin";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { adminDB } from "../../firebaseadmin";
+import { adminDB } from "../../firebaseAdmin";
 import query from "../../lib/queryApi";
 
 
@@ -12,7 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { prompt, chatId, model, session, email } = req.body;
+  const { prompt, chatId, model, session, email,temp } = req.body;
   
   if (!prompt) {
     res.status(400).json({ answer: "No prompt provided" });
@@ -24,7 +24,7 @@ export default async function handler(
     return;
   }
 
-  const response = await query(prompt, chatId, model);
+  const response = await query(prompt, chatId, model, temp);
 
   const message: Message = {
     text: response || "ChatGPT was unable to find answer for that!",
